@@ -9,7 +9,7 @@ resource "random_integer" "ri" {
 }
 
 resource "azurerm_cosmosdb_account" "db" {
-  name                = "itv-weatherdb-sqlprov-${random_integer.ri.result}"
+  name                = "cosmosdb-example-${random_integer.ri.result}"
   location            = azurerm_resource_group.rg.location
   resource_group_name = azurerm_resource_group.rg.name
   offer_type          = "Standard"
