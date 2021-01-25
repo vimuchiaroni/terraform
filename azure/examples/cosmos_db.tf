@@ -1,17 +1,18 @@
-resource "azurerm_resource_group" "rg" {
-  name     = "__resourcegroupname__"
-  location = "__location__"
-}
-
-resource "random_integer" "ri" {
+resource "random_integer" "dbri" {
   min = 10000
   max = 99999
 }
 
+resource "azurerm_resource_group" "db" {
+  name     = "__resourcegroupname__"
+  location = "__location__"
+}
+
+
 resource "azurerm_cosmosdb_account" "db" {
-  name                = "cosmosdb-example-${random_integer.ri.result}"
-  location            = azurerm_resource_group.rg.location
-  resource_group_name = azurerm_resource_group.rg.name
+  name                = "itv-weatherdb-sqlprov-${random_integer.dbri.result}"
+  location            = azurerm_resource_group.db.location
+  resource_group_name = azurerm_resource_group.db.name
   offer_type          = "Standard"
   kind                = "GlobalDocumentDB"
 
@@ -36,7 +37,7 @@ resource "azurerm_cosmosdb_account" "db" {
   }
 
   geo_location {
-    location          = azurerm_resource_group.rg.location
+    location          = azurerm_resource_group.db.location
     failover_priority = 0
   }
 }

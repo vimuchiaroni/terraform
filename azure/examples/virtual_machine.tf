@@ -1,20 +1,16 @@
-terraform {
+ terraform {
   required_version = ">= 0.11" 
-  backend "azurerm" {
+ backend "azurerm" {
   storage_account_name = "__terraformstorageaccount__"
-  container_name       = "terraform"
-  key                  = "terraform.tfstate"
-  access_key       = "__storagekey__"
+    container_name       = "terraform"
+    key                  = "terraform.tfstate"
+	access_key  ="__storagekey__"
   features{}
 	}
 	}
   provider "azurerm" {
     version = "=2.43.0"
 features {}
-}
-
-variable "prefix" {
-  default = "itv"
 }
 
 resource "azurerm_resource_group" "main" {
@@ -39,9 +35,8 @@ resource "azurerm_subnet" "internal" {
 
 resource "azurerm_public_ip" "main" {
     name                         = "public"
-	location		= azurerm_resource_group.main.location
+	location					 = azurerm_resource_group.main.location
     resource_group_name          = azurerm_resource_group.main.name
-	#Will assign an Static IP to the VM
     allocation_method            = "Static"
 }
 
